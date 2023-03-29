@@ -40,7 +40,7 @@ public class Gui implements ActionListener {
         frame.setLayout(null);
 
         titleLabel = new JLabel("Gestione liste");
-        titleLabel.setBounds(0,0,720,30);
+        titleLabel.setBounds(0,0,720,20);
 
         panel = new JPanel();
         panel.setBounds(0,20,720,560);
@@ -65,15 +65,16 @@ public class Gui implements ActionListener {
         buttonsPanel.add(inserisciCodaButton);
 
         scrollPanelInternalPanel = new JPanel();
-        scrollPanelInternalPanel.setBounds(40, 180, 640, 300);
-        scrollPanelInternalPanel.setPreferredSize(new Dimension(600,800));
-        //scrollPanelInternalPanel.setBackground(Color.red);
+        //scrollPanelInternalPanel.setBounds(20, 180, 640, 300);
+        scrollPanelInternalPanel.setLayout(null);
+        scrollPanelInternalPanel.setPreferredSize(new Dimension(2000,300));
 
         nodesPanel = new JScrollPane(scrollPanelInternalPanel);
-        nodesPanel.setBounds(40, 130, 640, 300);
-        nodesPanel.setLayout(null);
+        nodesPanel.setBounds(20, 130, 660, 300);
         nodesPanel.setVisible(true);
         nodesPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        nodesPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        nodesPanel.setPreferredSize(new Dimension(100,100));
 
 
         panel.add(buttonsPanel);
@@ -109,14 +110,15 @@ public class Gui implements ActionListener {
         nodePanels.add(new JPanel());
 
         for(int i = 0; i < nodePanels.size(); i++){
-            nodePanels.get(i).setBounds(70 + (40 * i) + (20 * i), 210, 40,  20);
+            nodePanels.get(i).setBounds(50 + (100 * i) + (50 * i), (170-50)/2 + 70, 100,  50); // y = 150
             nodePanels.get(i).setLayout(new GridLayout(1,2,2,2));
             nodePanels.get(i).setBorder(nodePanelBorder);
             nodePanels.get(i).setVisible(true);
-            nodePanels.get(i).setBackground(Color.green);
+            nodePanels.get(i).setBackground(Color.red);
 
             nodePanels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
 
+            //nodesPanel.add(nodePanels.get(i));
             scrollPanelInternalPanel.add(nodePanels.get(i));
 
             if(nodePanels.size() > 1){
@@ -301,14 +303,21 @@ public class Gui implements ActionListener {
 
                     }
                 };
-                g.drawLine(70 + (40 * i) + (20 * i) + 40, 210, 70 + (40 * i) + (20 * i) + 60, 210);
                 g.setColor(Color.black);
+                g.drawLine(50 + (100 * i) + (50 * i) + 100, (170-50)/2 + 70 + 25, 50 + (100 * i) + (50 * i) + 200, (170-50)/2 + 70 + 25);
+
 
             }
 
             //Add value inside a label in the panel
 
         }
+
+        JLabel label = new JLabel();
+        label.setText("num");
+        label.setBackground(Color.green);
+
+        nodePanels.get(nodePanels.size()-1).add(label);
 
 
     }

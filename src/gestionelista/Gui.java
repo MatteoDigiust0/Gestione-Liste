@@ -30,7 +30,7 @@ public class Gui implements ActionListener {
 
     static Lista lista;
 
-    private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black);
+    private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black, 5);
     public Gui(){
 
         frame = new JFrame("Gestione Liste");
@@ -66,12 +66,14 @@ public class Gui implements ActionListener {
 
         scrollPanelInternalPanel = new JPanel();
         scrollPanelInternalPanel.setBounds(40, 180, 640, 300);
+        scrollPanelInternalPanel.setPreferredSize(new Dimension(600,800));
         //scrollPanelInternalPanel.setBackground(Color.red);
 
         nodesPanel = new JScrollPane(scrollPanelInternalPanel);
         nodesPanel.setBounds(40, 130, 640, 300);
         nodesPanel.setLayout(null);
         nodesPanel.setVisible(true);
+        nodesPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 
         panel.add(buttonsPanel);
@@ -107,11 +109,13 @@ public class Gui implements ActionListener {
         nodePanels.add(new JPanel());
 
         for(int i = 0; i < nodePanels.size(); i++){
-            nodePanels.get(i).setBounds(70 + (40 * i) + (20 + 1), 210, 70 + (40 * i) + (20 + 1) + 40, 210 + 20);
+            nodePanels.get(i).setBounds(70 + (40 * i) + (20 * i), 210, 40,  20);
             nodePanels.get(i).setLayout(new GridLayout(1,2,2,2));
             nodePanels.get(i).setBorder(nodePanelBorder);
             nodePanels.get(i).setVisible(true);
             nodePanels.get(i).setBackground(Color.green);
+
+            nodePanels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
 
             scrollPanelInternalPanel.add(nodePanels.get(i));
 

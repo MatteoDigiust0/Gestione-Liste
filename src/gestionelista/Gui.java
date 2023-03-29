@@ -1,10 +1,14 @@
 package gestionelista;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
 
 public class Gui implements ActionListener {
 
@@ -13,12 +17,20 @@ public class Gui implements ActionListener {
     private final JPanel panel;
     private final JPanel buttonsPanel;
     private final JLabel titleLabel;
+
+    private final JScrollPane nodesPanel;
     private final JButton inserisciTestaButton;
     private final JButton inserisciCodaButton;
 
     private final JSpinner numeroSpinner;
 
-    private static ArrayList<JPanel> nodesPanels;
+    private final  JPanel scrollPanelInternalPanel;
+
+    private static ArrayList<JPanel> nodePanels;
+
+    static Lista lista;
+
+    private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black);
     public Gui(){
 
         frame = new JFrame("Gestione Liste");
@@ -28,30 +40,42 @@ public class Gui implements ActionListener {
         frame.setLayout(null);
 
         titleLabel = new JLabel("Gestione liste");
-        titleLabel.setBounds(0,0,720,40);
+        titleLabel.setBounds(0,0,720,30);
 
         panel = new JPanel();
-        panel.setBounds(0,40,720,540);
+        panel.setBounds(0,20,720,560);
+        panel.setLayout(null);
 
         numeroSpinner = new JSpinner();
-        numeroSpinner.setBounds(0,40,240,90);
+        //numeroSpinner.setBounds(0,40,240,90);
 
         inserisciTestaButton = new JButton("Inserisci tesa");
-        inserisciTestaButton.setBounds(240,40,480,90);
+        inserisciTestaButton.addActionListener(this);
+        //inserisciTestaButton.setBounds(240,40,480,90);
 
         inserisciCodaButton = new JButton("Inserisci coda");
-        inserisciCodaButton.setBounds(480,40, 720,90);
+        inserisciCodaButton.addActionListener(this);
+        //inserisciCodaButton.setBounds(480,40, 720,90);
 
         buttonsPanel = new JPanel();
-        buttonsPanel.setBounds(0,55, 720, 105);
+        buttonsPanel.setBounds(20,55, 660, 50);
         buttonsPanel.setLayout(new GridLayout(1,3, 2,2));
         buttonsPanel.add(numeroSpinner);
         buttonsPanel.add(inserisciTestaButton);
         buttonsPanel.add(inserisciCodaButton);
 
+        scrollPanelInternalPanel = new JPanel();
+        scrollPanelInternalPanel.setBounds(40, 180, 640, 300);
+        //scrollPanelInternalPanel.setBackground(Color.red);
+
+        nodesPanel = new JScrollPane(scrollPanelInternalPanel);
+        nodesPanel.setBounds(40, 130, 640, 300);
+        nodesPanel.setLayout(null);
+        nodesPanel.setVisible(true);
+
 
         panel.add(buttonsPanel);
-
+        panel.add(nodesPanel);
         frame.add(titleLabel);
         frame.add(panel);
         frame.setVisible(true);
@@ -60,28 +84,229 @@ public class Gui implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if(e.getSource() == inserisciTestaButton){
+
+            lista.addFront((Integer) numeroSpinner.getValue());
+            System.out.println(numeroSpinner.getValue());
+            addNode();
+
+        }
+
     }
 
     public static void main(String args[]){
 
         Gui gui = new Gui();
-        nodesPanels = new ArrayList<JPanel>();
+        nodePanels = new ArrayList<JPanel>();
+        lista = new Lista();
 
     }
 
     private void addNode(){
 
-        nodesPanels.add(new JPanel());
-        nodesPanels.get(nodesPanels.size() -1).setBounds((panel.getWidth() - (40 * nodesPanels.size()) - (20 * nodesPanels.size() - 1))/2, panel.getHeight() - 20/2,  (40 * nodesPanels.size()) - (20 * nodesPanels.size() - 1), 20);
-        nodesPanels.get(nodesPanels.size() - 1).setLayout(new GridLayout(1, 2, 2, 2));
+        nodePanels.add(new JPanel());
 
-        panel.add(nodesPanels.get(nodesPanels.size() - 1));
+        for(int i = 0; i < nodePanels.size(); i++){
+            nodePanels.get(i).setBounds(70 + (40 * i) + (20 + 1), 210, 70 + (40 * i) + (20 + 1) + 40, 210 + 20);
+            nodePanels.get(i).setLayout(new GridLayout(1,2,2,2));
+            nodePanels.get(i).setBorder(nodePanelBorder);
+            nodePanels.get(i).setVisible(true);
+            nodePanels.get(i).setBackground(Color.green);
 
-        if(nodesPanels.size() > 1){
+            scrollPanelInternalPanel.add(nodePanels.get(i));
 
-            Graphics g = null;
-            g.drawLine((panel.getWidth() - (40 * nodesPanels.size()) - (20 * nodesPanels.size() - 1))/2 + 40, panel.getHeight() - 20/2 + 10, (40 * nodesPanels.size()) - (20 * nodesPanels.size() - 1)/2 + 40 +20, panel.getHeight() - 20/2 + 10);
+            if(nodePanels.size() > 1){
+                Graphics g = new Graphics() {
+                    @Override
+                    public Graphics create() {
+                        return null;
+                    }
+
+                    @Override
+                    public void translate(int x, int y) {
+
+                    }
+
+                    @Override
+                    public Color getColor() {
+                        return null;
+                    }
+
+                    @Override
+                    public void setColor(Color c) {
+
+                    }
+
+                    @Override
+                    public void setPaintMode() {
+
+                    }
+
+                    @Override
+                    public void setXORMode(Color c1) {
+
+                    }
+
+                    @Override
+                    public Font getFont() {
+                        return null;
+                    }
+
+                    @Override
+                    public void setFont(Font font) {
+
+                    }
+
+                    @Override
+                    public FontMetrics getFontMetrics(Font f) {
+                        return null;
+                    }
+
+                    @Override
+                    public Rectangle getClipBounds() {
+                        return null;
+                    }
+
+                    @Override
+                    public void clipRect(int x, int y, int width, int height) {
+
+                    }
+
+                    @Override
+                    public void setClip(int x, int y, int width, int height) {
+
+                    }
+
+                    @Override
+                    public Shape getClip() {
+                        return null;
+                    }
+
+                    @Override
+                    public void setClip(Shape clip) {
+
+                    }
+
+                    @Override
+                    public void copyArea(int x, int y, int width, int height, int dx, int dy) {
+
+                    }
+
+                    @Override
+                    public void drawLine(int x1, int y1, int x2, int y2) {
+
+                    }
+
+                    @Override
+                    public void fillRect(int x, int y, int width, int height) {
+
+                    }
+
+                    @Override
+                    public void clearRect(int x, int y, int width, int height) {
+
+                    }
+
+                    @Override
+                    public void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
+
+                    }
+
+                    @Override
+                    public void fillRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
+
+                    }
+
+                    @Override
+                    public void drawOval(int x, int y, int width, int height) {
+
+                    }
+
+                    @Override
+                    public void fillOval(int x, int y, int width, int height) {
+
+                    }
+
+                    @Override
+                    public void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
+
+                    }
+
+                    @Override
+                    public void fillArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
+
+                    }
+
+                    @Override
+                    public void drawPolyline(int[] xPoints, int[] yPoints, int nPoints) {
+
+                    }
+
+                    @Override
+                    public void drawPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+
+                    }
+
+                    @Override
+                    public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
+
+                    }
+
+                    @Override
+                    public void drawString(String str, int x, int y) {
+
+                    }
+
+                    @Override
+                    public void drawString(AttributedCharacterIterator iterator, int x, int y) {
+
+                    }
+
+                    @Override
+                    public boolean drawImage(Image img, int x, int y, ImageObserver observer) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean drawImage(Image img, int x, int y, int width, int height, ImageObserver observer) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean drawImage(Image img, int x, int y, Color bgcolor, ImageObserver observer) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean drawImage(Image img, int x, int y, int width, int height, Color bgcolor, ImageObserver observer) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, ImageObserver observer) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, Color bgcolor, ImageObserver observer) {
+                        return false;
+                    }
+
+                    @Override
+                    public void dispose() {
+
+                    }
+                };
+                g.drawLine(70 + (40 * i) + (20 * i) + 40, 210, 70 + (40 * i) + (20 * i) + 60, 210);
+                g.setColor(Color.black);
+
+            }
+
+            //Add value inside a label in the panel
+
         }
+
+
     }
 
 }

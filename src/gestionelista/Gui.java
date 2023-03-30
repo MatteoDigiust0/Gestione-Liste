@@ -123,6 +123,7 @@ public class Gui implements ActionListener {
         scrollPanelInternalPanel.add(nodePanels.get(nodePanels.size()-1));
 
         drawArrow();
+        nodesPanel.repaint();
 
         nodePanels.get(nodePanels.size() - 1).add( new Label("num"), BorderLayout.WEST);
         nodePanels.get(nodePanels.size() - 1).add( new Label("pun"), BorderLayout.EAST);
@@ -133,13 +134,15 @@ public class Gui implements ActionListener {
 
     public void drawArrow(){
 
-        JLabel arrowLabel = new JLabel("---------->");
-        arrowLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        arrowLabel.setBounds(lastX, /*(170-50)/2*/100, 100, 50/*(170-50)/2 + 70 + 25*/);
-        arrowLabel.setHorizontalAlignment(JLabel.CENTER);
-        scrollPanelInternalPanel.add(arrowLabel);
-        lastX+=100;
+        if(nodePanels.size() > 1) {
+            JLabel arrowLabel = new JLabel("---------->");
+            arrowLabel.setFont(new Font("Arial", Font.BOLD, 15));
+            arrowLabel.setBounds(lastX - 200, /*(170-50)/2*/100, 100, 50/*(170-50)/2 + 70 + 25*/);
+            arrowLabel.setHorizontalAlignment(JLabel.CENTER);
+            scrollPanelInternalPanel.add(arrowLabel);
+        }
 
+        lastX += 100;
     }
 
     public static void setLastX(int lastX){

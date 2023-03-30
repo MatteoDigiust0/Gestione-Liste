@@ -112,7 +112,7 @@ public class Gui implements ActionListener {
         nodePanels.add(new JPanel());
 
         System.out.println(nodePanels.size());
-        nodePanels.get(nodePanels.size()-1).setBounds(lastX, (170-50)/2, 100, 50);
+        nodePanels.get(nodePanels.size()-1).setBounds(lastX, (170-50)/2 + 70 + 25, 100, 50);
         nodePanels.get(nodePanels.size()-1).setLayout(new BorderLayout());
         nodePanels.get(nodePanels.size()-1).setBorder(nodePanelBorder);
         nodePanels.get(nodePanels.size()-1).setVisible(true);
@@ -121,20 +121,24 @@ public class Gui implements ActionListener {
         System.out.println(lastX);
 
         scrollPanelInternalPanel.add(nodePanels.get(nodePanels.size()-1));
-        nodesPanel.repaint();
 
-        drawLine(); //To do
+        drawArrow(); //To do
 
         nodePanels.get(nodePanels.size() - 1).add( new Label("num"), BorderLayout.WEST);
         nodePanels.get(nodePanels.size() - 1).add( new Label("pun"), BorderLayout.EAST);
-        
 
+        nodesPanel.repaint();
+        
     }
 
-    public void drawLine(){
+    public void drawArrow(){
 
-        lastX+= 100;
-
+        JLabel arrowLabel = new JLabel("---------->");
+        arrowLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        arrowLabel.setBounds(lastX, (170-50)/2 + 70 + 25, 100, 50/*(170-50)/2 + 70 + 25*/);
+        arrowLabel.setHorizontalAlignment(JLabel.CENTER);
+        scrollPanelInternalPanel.add(arrowLabel);
+        lastX+=100;
 
     }
 

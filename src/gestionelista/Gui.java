@@ -31,7 +31,7 @@ public class Gui implements ActionListener {
 
     static Lista lista;
 
-    private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black, 5);
+    private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black, 2);
     public Gui(){
 
         frame = new JFrame("Gestione Liste");
@@ -112,7 +112,7 @@ public class Gui implements ActionListener {
         nodePanels.add(new JPanel());
 
         System.out.println(nodePanels.size());
-        nodePanels.get(nodePanels.size()-1).setBounds(lastX, (170-50)/2 + 70 + 25, 100, 50);
+        nodePanels.get(nodePanels.size()-1).setBounds(lastX, /*(170-50)/2 + 70*/100, 100, 50);        //(170-50)/2 + 70 + 25, 100, 50
         nodePanels.get(nodePanels.size()-1).setLayout(new BorderLayout());
         nodePanels.get(nodePanels.size()-1).setBorder(nodePanelBorder);
         nodePanels.get(nodePanels.size()-1).setVisible(true);
@@ -122,7 +122,7 @@ public class Gui implements ActionListener {
 
         scrollPanelInternalPanel.add(nodePanels.get(nodePanels.size()-1));
 
-        drawArrow(); //To do
+        drawArrow();
 
         nodePanels.get(nodePanels.size() - 1).add( new Label("num"), BorderLayout.WEST);
         nodePanels.get(nodePanels.size() - 1).add( new Label("pun"), BorderLayout.EAST);
@@ -135,7 +135,7 @@ public class Gui implements ActionListener {
 
         JLabel arrowLabel = new JLabel("---------->");
         arrowLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        arrowLabel.setBounds(lastX, (170-50)/2 + 70 + 25, 100, 50/*(170-50)/2 + 70 + 25*/);
+        arrowLabel.setBounds(lastX, /*(170-50)/2*/100, 100, 50/*(170-50)/2 + 70 + 25*/);
         arrowLabel.setHorizontalAlignment(JLabel.CENTER);
         scrollPanelInternalPanel.add(arrowLabel);
         lastX+=100;

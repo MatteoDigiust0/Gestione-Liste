@@ -5,10 +5,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
-import java.util.IllegalFormatException;
+import java.awt.Graphics;
 
 public class Gui implements ActionListener {
 
@@ -27,6 +25,9 @@ public class Gui implements ActionListener {
     private final  JPanel scrollPanelInternalPanel;
 
     private static ArrayList<JPanel> nodePanels;
+
+    private static int lastX;
+    //private final int lastY;
 
     static Lista lista;
 
@@ -102,6 +103,7 @@ public class Gui implements ActionListener {
         Gui gui = new Gui();
         nodePanels = new ArrayList<JPanel>();
         lista = new Lista();
+        lastX = 50;
 
     }
 
@@ -109,226 +111,41 @@ public class Gui implements ActionListener {
 
         nodePanels.add(new JPanel());
 
-        for(int i = 0; i < nodePanels.size(); i++){
-            nodePanels.get(i).setBounds(50 + (100 * i) + (50 * i), (170-50)/2 + 70, 100,  50); // y = 150
-            nodePanels.get(i).setLayout(new GridLayout(1,2,2,2));
-            nodePanels.get(i).setBorder(nodePanelBorder);
-            nodePanels.get(i).setVisible(true);
-            nodePanels.get(i).setBackground(Color.red);
+        System.out.println(nodePanels.size());
+        nodePanels.get(nodePanels.size()-1).setBounds(lastX, (170-50)/2, 100, 50);
+        nodePanels.get(nodePanels.size()-1).setLayout(new BorderLayout());
+        nodePanels.get(nodePanels.size()-1).setBorder(nodePanelBorder);
+        nodePanels.get(nodePanels.size()-1).setVisible(true);
 
-            nodePanels.get(i).setBorder(BorderFactory.createLineBorder(Color.black));
+        lastX+=100;
+        System.out.println(lastX);
 
-            //nodesPanel.add(nodePanels.get(i));
-            scrollPanelInternalPanel.add(nodePanels.get(i));
+        scrollPanelInternalPanel.add(nodePanels.get(nodePanels.size()-1));
+        nodesPanel.repaint();
 
+        drawLine(); //To do
 
-            //Add value inside a label in the panel
+        nodePanels.get(nodePanels.size() - 1).add( new Label("num"), BorderLayout.WEST);
+        nodePanels.get(nodePanels.size() - 1).add( new Label("pun"), BorderLayout.EAST);
+        
 
-        }
+    }
 
-        if(nodePanels.size() > 1){
+    public void drawLine(){
 
-            //g.setColor(Color.black);
-            //super.paintComponent(g);
-            //g.drawLine(50 + (100 * i) + (50 * i) + 100, (170-50)/2 + 70 + 25, 50 + (100 * i) + (50 * i) + 200, (170-50)/2 + 70 + 25);
-            DrawLine lines = new DrawLine();
-            Graphics g = new Graphics() {
-                @Override
-                public Graphics create() {
-                    return null;
-                }
-
-                @Override
-                public void translate(int x, int y) {
-
-                }
-
-                @Override
-                public Color getColor() {
-                    return null;
-                }
-
-                @Override
-                public void setColor(Color c) {
-
-                }
-
-                @Override
-                public void setPaintMode() {
-
-                }
-
-                @Override
-                public void setXORMode(Color c1) {
-
-                }
-
-                @Override
-                public Font getFont() {
-                    return null;
-                }
-
-                @Override
-                public void setFont(Font font) {
-
-                }
-
-                @Override
-                public FontMetrics getFontMetrics(Font f) {
-                    return null;
-                }
-
-                @Override
-                public Rectangle getClipBounds() {
-                    return null;
-                }
-
-                @Override
-                public void clipRect(int x, int y, int width, int height) {
-
-                }
-
-                @Override
-                public void setClip(int x, int y, int width, int height) {
-
-                }
-
-                @Override
-                public Shape getClip() {
-                    return null;
-                }
-
-                @Override
-                public void setClip(Shape clip) {
-
-                }
-
-                @Override
-                public void copyArea(int x, int y, int width, int height, int dx, int dy) {
-
-                }
-
-                @Override
-                public void drawLine(int x1, int y1, int x2, int y2) {
-
-                }
-
-                @Override
-                public void fillRect(int x, int y, int width, int height) {
-
-                }
-
-                @Override
-                public void clearRect(int x, int y, int width, int height) {
-
-                }
-
-                @Override
-                public void drawRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
-
-                }
-
-                @Override
-                public void fillRoundRect(int x, int y, int width, int height, int arcWidth, int arcHeight) {
-
-                }
-
-                @Override
-                public void drawOval(int x, int y, int width, int height) {
-
-                }
-
-                @Override
-                public void fillOval(int x, int y, int width, int height) {
-
-                }
-
-                @Override
-                public void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-
-                }
-
-                @Override
-                public void fillArc(int x, int y, int width, int height, int startAngle, int arcAngle) {
-
-                }
-
-                @Override
-                public void drawPolyline(int[] xPoints, int[] yPoints, int nPoints) {
-
-                }
-
-                @Override
-                public void drawPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-
-                }
-
-                @Override
-                public void fillPolygon(int[] xPoints, int[] yPoints, int nPoints) {
-
-                }
-
-                @Override
-                public void drawString(String str, int x, int y) {
-
-                }
-
-                @Override
-                public void drawString(AttributedCharacterIterator iterator, int x, int y) {
-
-                }
-
-                @Override
-                public boolean drawImage(Image img, int x, int y, ImageObserver observer) {
-                    return false;
-                }
-
-                @Override
-                public boolean drawImage(Image img, int x, int y, int width, int height, ImageObserver observer) {
-                    return false;
-                }
-
-                @Override
-                public boolean drawImage(Image img, int x, int y, Color bgcolor, ImageObserver observer) {
-                    return false;
-                }
-
-                @Override
-                public boolean drawImage(Image img, int x, int y, int width, int height, Color bgcolor, ImageObserver observer) {
-                    return false;
-                }
-
-                @Override
-                public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, ImageObserver observer) {
-                    return false;
-                }
-
-                @Override
-                public boolean drawImage(Image img, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2, Color bgcolor, ImageObserver observer) {
-                    return false;
-                }
-
-                @Override
-                public void dispose() {
-
-                }
-            };
-            lines.paintComponent(g);
-            nodesPanel.add(lines);
-
-        }
-
-        JLabel label = new JLabel();
-        label.setText("num");
-        label.setBackground(Color.green);
-
-        nodePanels.get(nodePanels.size()-1).add(label);
+        lastX+= 100;
 
 
     }
 
-    public static ArrayList<JPanel> getNodePanels() {
-        return nodePanels;
+    public static void setLastX(int lastX){
+        Gui.lastX = lastX;
     }
+
+    public static int getLastX(){
+        return lastX;
+    }
+
+
 }
 

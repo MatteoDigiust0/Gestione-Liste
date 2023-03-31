@@ -109,7 +109,7 @@ public class Gui implements ActionListener {
 
         nodePanels.get(nodePanels.size()-1).setBounds(lastX, /*(170-50)/2 + 70*/100, 100, 50);        //(170-50)/2 + 70 + 25, 100, 50
         nodePanels.get(nodePanels.size()-1).setLayout(new BorderLayout());
-        //nodePanels.get(nodePanels.size()-1).setBorder(nodePanelBorder);
+        nodePanels.get(nodePanels.size()-1).setBorder(nodePanelBorder);
         nodePanels.get(nodePanels.size()-1).setVisible(true);
 
         lastX+=100;
@@ -129,11 +129,8 @@ public class Gui implements ActionListener {
         panel1.add(new JLabel("num"));
         panel2.add(new JLabel("punt"));
 
-        //new JLabel("num")
         nodePanels.get(nodePanels.size() - 1).add(panel1, BorderLayout.WEST);
         nodePanels.get(nodePanels.size() - 1).add(panel2, BorderLayout.EAST);
-
-        //nodePanels.get(nodePanels.size() - 1).setBorder(new RoundedBorder(Color.BLACK, 7));
 
         panel1.setBorder(nodePanelBorder);
         panel2.setBorder(nodePanelBorder);

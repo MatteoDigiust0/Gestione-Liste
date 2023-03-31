@@ -31,7 +31,7 @@ public class Gui implements ActionListener {
 
     static Lista lista;
 
-    private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black, 2);
+    private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black, 1);
     public Gui(){
 
         frame = new JFrame("Gestione Liste");
@@ -48,15 +48,12 @@ public class Gui implements ActionListener {
         panel.setLayout(null);
 
         numeroSpinner = new JSpinner();
-        //numeroSpinner.setBounds(0,40,240,90);
 
         inserisciTestaButton = new JButton("Inserisci tesa");
         inserisciTestaButton.addActionListener(this);
-        //inserisciTestaButton.setBounds(240,40,480,90);
 
         inserisciCodaButton = new JButton("Inserisci coda");
         inserisciCodaButton.addActionListener(this);
-        //inserisciCodaButton.setBounds(480,40, 720,90);
 
         buttonsPanel = new JPanel();
         buttonsPanel.setBounds(20,55, 660, 50);
@@ -66,7 +63,6 @@ public class Gui implements ActionListener {
         buttonsPanel.add(inserisciCodaButton);
 
         scrollPanelInternalPanel = new JPanel();
-        //scrollPanelInternalPanel.setBounds(20, 180, 640, 300);
         scrollPanelInternalPanel.setLayout(null);
         scrollPanelInternalPanel.setPreferredSize(new Dimension(2000,300));
 
@@ -83,6 +79,7 @@ public class Gui implements ActionListener {
         frame.add(titleLabel);
         frame.add(panel);
         frame.setVisible(true);
+
     }
 
     @Override
@@ -91,7 +88,6 @@ public class Gui implements ActionListener {
         if(e.getSource() == inserisciTestaButton){
 
             lista.addFront((Integer) numeroSpinner.getValue());
-            System.out.println(numeroSpinner.getValue());
             addNode();
 
         }
@@ -111,22 +107,36 @@ public class Gui implements ActionListener {
 
         nodePanels.add(new JPanel());
 
-        System.out.println(nodePanels.size());
         nodePanels.get(nodePanels.size()-1).setBounds(lastX, /*(170-50)/2 + 70*/100, 100, 50);        //(170-50)/2 + 70 + 25, 100, 50
         nodePanels.get(nodePanels.size()-1).setLayout(new BorderLayout());
-        nodePanels.get(nodePanels.size()-1).setBorder(nodePanelBorder);
+        //nodePanels.get(nodePanels.size()-1).setBorder(nodePanelBorder);
         nodePanels.get(nodePanels.size()-1).setVisible(true);
 
         lastX+=100;
-        System.out.println(lastX);
 
         scrollPanelInternalPanel.add(nodePanels.get(nodePanels.size()-1));
 
         drawArrow();
         nodesPanel.repaint();
 
-        nodePanels.get(nodePanels.size() - 1).add( new Label("num"), BorderLayout.WEST);
-        nodePanels.get(nodePanels.size() - 1).add( new Label("pun"), BorderLayout.EAST);
+        JPanel panel1 = new JPanel(new FlowLayout());
+        JPanel panel2 = new JPanel(new FlowLayout());
+
+        panel1.setPreferredSize(new Dimension(50,50));
+        panel2.setPreferredSize(new Dimension(50,50));
+
+
+        panel1.add(new JLabel("num"));
+        panel2.add(new JLabel("punt"));
+
+        //new JLabel("num")
+        nodePanels.get(nodePanels.size() - 1).add(panel1, BorderLayout.WEST);
+        nodePanels.get(nodePanels.size() - 1).add(panel2, BorderLayout.EAST);
+
+        //nodePanels.get(nodePanels.size() - 1).setBorder(new RoundedBorder(Color.BLACK, 7));
+
+        panel1.setBorder(nodePanelBorder);
+        panel2.setBorder(nodePanelBorder);
 
         nodesPanel.repaint();
         
@@ -136,23 +146,15 @@ public class Gui implements ActionListener {
 
         if(nodePanels.size() > 1) {
             JLabel arrowLabel = new JLabel("---------->");
-            arrowLabel.setFont(new Font("Arial", Font.BOLD, 15));
+            arrowLabel.setFont(new Font("Arial", Font.BOLD, 20));
             arrowLabel.setBounds(lastX - 200, /*(170-50)/2*/100, 100, 50/*(170-50)/2 + 70 + 25*/);
             arrowLabel.setHorizontalAlignment(JLabel.CENTER);
             scrollPanelInternalPanel.add(arrowLabel);
         }
 
         lastX += 100;
-    }
 
-    public static void setLastX(int lastX){
-        Gui.lastX = lastX;
     }
-
-    public static int getLastX(){
-        return lastX;
-    }
-
 
 }
 

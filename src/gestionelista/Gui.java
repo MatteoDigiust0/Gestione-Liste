@@ -104,14 +104,14 @@ public class Gui implements ActionListener {
             lista.addBehind((Integer) numeroSpinner.getValue());
             addNode();
 
-            System.out.println(1);
-
             for(int i = 0; i < nodePanels.size(); i++){
                 nodePanels.get(i).removeAll();
             }
 
-            System.out.println(2);
+            System.out.println(numeroSpinner.getValue());
+
             updateNodes();
+
         }
 
     }
@@ -132,26 +132,30 @@ public class Gui implements ActionListener {
 
         for(int i = 0; i < nodePanels.size(); i++){
 
-            JPanel panel1 = new JPanel(new FlowLayout());
-            JPanel panel2 = new JPanel(new FlowLayout());
+            if(nodoTemp != null){
+                JPanel panel1 = new JPanel(new FlowLayout());
+                JPanel panel2 = new JPanel(new FlowLayout());
 
-            panel1.setPreferredSize(new Dimension(50,50));
-            panel2.setPreferredSize(new Dimension(50,50));
+                panel1.setPreferredSize(new Dimension(50,50));
+                panel2.setPreferredSize(new Dimension(50,50));
 
-            panel1.add(new JLabel(String.valueOf(nodoTemp.getInfo())));
-            if(nodoTemp.getNext() != null)
+                panel1.add(new JLabel(String.valueOf(nodoTemp.getInfo())));
+                panel2.add(new JLabel());
+
+                nodePanels.get(i).add(panel1, BorderLayout.WEST);
+                nodePanels.get(i).add(panel2, BorderLayout.EAST);
+
+                panel1.setBorder(nodePanelBorder);
+                panel2.setBorder(nodePanelBorder);
+
+
                 nodoTemp = nodoTemp.getNext();
-            panel2.add(new JLabel());
-
-            nodePanels.get(i).add(panel1, BorderLayout.WEST);
-            nodePanels.get(i).add(panel2, BorderLayout.EAST);
-
-            panel1.setBorder(nodePanelBorder);
-            panel2.setBorder(nodePanelBorder);
-
+            }
 
         }
+
     }
+
 
     private void addNode(){
 
@@ -185,7 +189,7 @@ public class Gui implements ActionListener {
         panel1.setBorder(nodePanelBorder);
         panel2.setBorder(nodePanelBorder);
         */
-        updateNodes();
+        //updateNodes();
         nodesPanel.repaint();
         
     }

@@ -90,6 +90,28 @@ public class Gui implements ActionListener {
             lista.addFront((Integer) numeroSpinner.getValue());
             addNode();
 
+            for(int i = 0; i < nodePanels.size(); i++){
+
+                nodePanels.get(i).removeAll();
+            }
+
+            updateNodes();
+
+        }
+
+        if(e.getSource() == inserisciCodaButton){
+
+            lista.addBehind((Integer) numeroSpinner.getValue());
+            addNode();
+
+            System.out.println(1);
+
+            for(int i = 0; i < nodePanels.size(); i++){
+                nodePanels.get(i).removeAll();
+            }
+
+            System.out.println(2);
+            updateNodes();
         }
 
     }
@@ -101,6 +123,34 @@ public class Gui implements ActionListener {
         lista = new Lista();
         lastX = 50;
 
+    }
+
+    private void updateNodes(){
+
+        Nodo nodoTemp = new Nodo();
+        nodoTemp = lista.getHead();
+
+        for(int i = 0; i < nodePanels.size(); i++){
+
+            JPanel panel1 = new JPanel(new FlowLayout());
+            JPanel panel2 = new JPanel(new FlowLayout());
+
+            panel1.setPreferredSize(new Dimension(50,50));
+            panel2.setPreferredSize(new Dimension(50,50));
+
+            panel1.add(new JLabel(String.valueOf(nodoTemp.getInfo())));
+            if(nodoTemp.getNext() != null)
+                nodoTemp = nodoTemp.getNext();
+            panel2.add(new JLabel());
+
+            nodePanels.get(i).add(panel1, BorderLayout.WEST);
+            nodePanels.get(i).add(panel2, BorderLayout.EAST);
+
+            panel1.setBorder(nodePanelBorder);
+            panel2.setBorder(nodePanelBorder);
+
+
+        }
     }
 
     private void addNode(){
@@ -119,22 +169,23 @@ public class Gui implements ActionListener {
         drawArrow();
         nodesPanel.repaint();
 
+        /*
         JPanel panel1 = new JPanel(new FlowLayout());
         JPanel panel2 = new JPanel(new FlowLayout());
 
         panel1.setPreferredSize(new Dimension(50,50));
         panel2.setPreferredSize(new Dimension(50,50));
 
-
-        panel1.add(new JLabel("num"));
-        panel2.add(new JLabel("punt"));
+        panel1.add(new JLabel(String.valueOf(lista.getHead().getInfo())));
+        panel2.add(new JLabel());
 
         nodePanels.get(nodePanels.size() - 1).add(panel1, BorderLayout.WEST);
         nodePanels.get(nodePanels.size() - 1).add(panel2, BorderLayout.EAST);
 
         panel1.setBorder(nodePanelBorder);
         panel2.setBorder(nodePanelBorder);
-
+        */
+        updateNodes();
         nodesPanel.repaint();
         
     }

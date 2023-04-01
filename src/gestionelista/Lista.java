@@ -222,4 +222,8 @@ public class Lista {
 
         return false;
     }
+
+    public Nodo getHead(){
+        return head;
+    }
 }

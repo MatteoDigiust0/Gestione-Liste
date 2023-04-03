@@ -10,21 +10,28 @@ import java.awt.Graphics;
 
 public class Gui implements ActionListener {
 
-
+    //JFrame
     private final JFrame frame;
+
+    //Panels
     private final JPanel panel;
     private final JPanel buttonsPanel;
+    private final  JPanel scrollPanelInternalPanel;
+    private static ArrayList<JPanel> nodePanels;
+
+    //Label
     private final JLabel titleLabel;
 
+    //ScrollPane
     private final JScrollPane nodesPanel;
+
+    //Buttons
     private final JButton inserisciTestaButton;
     private final JButton inserisciCodaButton;
 
-    private final JSpinner numeroSpinner;
+    //Spinner
+    private final JSpinner numeroSpinner;       //To be TextField
 
-    private final  JPanel scrollPanelInternalPanel;
-
-    private static ArrayList<JPanel> nodePanels;
 
     private static int lastX;
     //private final int lastY;
@@ -104,11 +111,18 @@ public class Gui implements ActionListener {
             lista.addBehind((Integer) numeroSpinner.getValue());
             addNode();
 
+            Nodo nodo = new Nodo();
+
+            nodo = lista.getHead();
+
+            while(nodo != null){
+                System.out.println(nodo.getInfo());
+                nodo = nodo.getNext();
+            }
+
             for(int i = 0; i < nodePanels.size(); i++){
                 nodePanels.get(i).removeAll();
             }
-
-            System.out.println(numeroSpinner.getValue());
 
             updateNodes();
 
@@ -130,26 +144,26 @@ public class Gui implements ActionListener {
         Nodo nodoTemp = new Nodo();
         nodoTemp = lista.getHead();
 
-        for(int i = 0; i < nodePanels.size(); i++){
+        for(int i = 0; i < nodePanels.size(); i++) {
 
             if(nodoTemp != null){
-                JPanel panel1 = new JPanel(new FlowLayout());
-                JPanel panel2 = new JPanel(new FlowLayout());
+            JPanel panel1 = new JPanel(new FlowLayout());
+            JPanel panel2 = new JPanel(new FlowLayout());
 
-                panel1.setPreferredSize(new Dimension(50,50));
-                panel2.setPreferredSize(new Dimension(50,50));
+            panel1.setPreferredSize(new Dimension(50, 50));
+            panel2.setPreferredSize(new Dimension(50, 50));
 
-                panel1.add(new JLabel(String.valueOf(nodoTemp.getInfo())));
-                panel2.add(new JLabel());
+            panel1.add(new JLabel(String.valueOf(nodoTemp.getInfo())));
+            panel2.add(new JLabel());
 
-                nodePanels.get(i).add(panel1, BorderLayout.WEST);
-                nodePanels.get(i).add(panel2, BorderLayout.EAST);
+            nodePanels.get(i).add(panel1, BorderLayout.WEST);
+            nodePanels.get(i).add(panel2, BorderLayout.EAST);
 
-                panel1.setBorder(nodePanelBorder);
-                panel2.setBorder(nodePanelBorder);
+            panel1.setBorder(nodePanelBorder);
+            panel2.setBorder(nodePanelBorder);
 
+            nodoTemp = nodoTemp.getNext();
 
-                nodoTemp = nodoTemp.getNext();
             }
 
         }

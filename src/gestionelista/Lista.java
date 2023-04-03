@@ -34,21 +34,7 @@ public class Lista {
                 nodoTemp = nodoTemp.getNext();
             }
 
-            nodo.setNext(nodo);
-
-            /*Boolean trovato = false;
-
-            while(!trovato){
-
-                if(nodoTemp.getNext() == null){
-                    nodoTemp.setNext(nodo);
-                    //head = nodoTemp;
-                    trovato = true;
-                }
-                else{
-                    nodoTemp = nodoTemp.getNext();
-
-                }*/
+            nodoTemp.setNext(nodo);
         }
     }
 

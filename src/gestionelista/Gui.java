@@ -21,6 +21,7 @@ public class Gui implements ActionListener {
 
     //Label
     private final JLabel titleLabel;
+    private final JLabel averageLabel;
 
     //ScrollPane
     private final JScrollPane nodesPanel;
@@ -29,16 +30,22 @@ public class Gui implements ActionListener {
     private final JButton inserisciTestaButton;
     private final JButton inserisciCodaButton;
 
-    //Spinner
-    private final JSpinner numeroSpinner;       //To be TextField
-
-
-    //Variables
-    private static int lastX;
+    //TextField
+    private final JTextField numeroInput;
 
     //Borders
     private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black, 1);
 
+    //Colors
+    private static Color textColor = new Color(52, 58, 64);
+    private static Color backgroundColor = new Color(206,212,218);
+
+    //Fonts
+    private static Font titleFont = new Font("Figtree", Font.BOLD, 30 );
+    private static Font textFont = new Font("Figtree", Font.BOLD,15);
+
+    //Variables
+    private static int lastX;
     static Lista lista;
 
     public Gui(){
@@ -50,24 +57,34 @@ public class Gui implements ActionListener {
         frame.setLayout(null);
 
         titleLabel = new JLabel("Gestione liste");
-        titleLabel.setBounds(0,0,720,20);
+        titleLabel.setBounds(0,0,720,30);
+        titleLabel.setFont(titleFont);
 
         panel = new JPanel();
         panel.setBounds(0,20,720,560);
         panel.setLayout(null);
 
-        numeroSpinner = new JSpinner();
+        numeroInput = new JTextField();
+        numeroInput.setForeground(textColor);
+        numeroInput.setBackground(backgroundColor);
+        numeroInput.setFont(textFont);
 
-        inserisciTestaButton = new JButton("Inserisci tesa");
+        inserisciTestaButton = new JButton("Inserisci testa");
         inserisciTestaButton.addActionListener(this);
+        inserisciTestaButton.setForeground(textColor);
+        inserisciTestaButton.setBackground(backgroundColor);
+        inserisciTestaButton.setFont(textFont);
 
         inserisciCodaButton = new JButton("Inserisci coda");
         inserisciCodaButton.addActionListener(this);
+        inserisciCodaButton.setForeground(textColor);
+        inserisciCodaButton.setBackground(backgroundColor);
+        inserisciCodaButton.setFont(textFont);
 
         buttonsPanel = new JPanel();
         buttonsPanel.setBounds(20,55, 660, 50);
         buttonsPanel.setLayout(new GridLayout(1,3, 2,2));
-        buttonsPanel.add(numeroSpinner);
+        buttonsPanel.add(numeroInput);
         buttonsPanel.add(inserisciTestaButton);
         buttonsPanel.add(inserisciCodaButton);
 
@@ -82,9 +99,16 @@ public class Gui implements ActionListener {
         nodesPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         nodesPanel.setPreferredSize(new Dimension(100,100));
 
+        averageLabel = new JLabel();
+        averageLabel.setFont(textFont);
+        averageLabel.setForeground(textColor);
+        averageLabel.setBounds(0,540,360, 580);
+        averageLabel.setText("diodoidoidfoiofiofi");
+        nodesPanel.setVisible(true);
 
         panel.add(buttonsPanel);
         panel.add(nodesPanel);
+        frame.add(averageLabel);
         frame.add(titleLabel);
         frame.add(panel);
         frame.setVisible(true);
@@ -96,7 +120,7 @@ public class Gui implements ActionListener {
 
         if(e.getSource() == inserisciTestaButton){
 
-            lista.addFront((Integer) numeroSpinner.getValue());
+            lista.addFront( Integer.parseInt(numeroInput.getText()));
             addNode();
 
             for(int i = 0; i < nodePanels.size(); i++){
@@ -110,7 +134,7 @@ public class Gui implements ActionListener {
 
         if(e.getSource() == inserisciCodaButton){
 
-            lista.addBehind((Integer) numeroSpinner.getValue());
+            lista.addBehind(Integer.parseInt(numeroInput.getText()));
             addNode();
 
             Nodo nodo = new Nodo();

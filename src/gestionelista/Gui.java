@@ -33,12 +33,14 @@ public class Gui implements ActionListener {
     private final JSpinner numeroSpinner;       //To be TextField
 
 
+    //Variables
     private static int lastX;
-    //private final int lastY;
+
+    //Borders
+    private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black, 1);
 
     static Lista lista;
 
-    private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black, 1);
     public Gui(){
 
         frame = new JFrame("Gestione Liste");

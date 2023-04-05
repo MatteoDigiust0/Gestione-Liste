@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.awt.Graphics;
 
@@ -33,6 +34,9 @@ public class Gui implements ActionListener {
     //TextField
     private final JTextField numeroInput;
 
+    //JCheckBox
+    private final JCheckBox enableConditionalInput;
+
     //Borders
     private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black, 1);
 
@@ -46,7 +50,9 @@ public class Gui implements ActionListener {
 
     //Variables
     private static int lastX;
-    static Lista lista;
+    private static Lista lista;
+    private static boolean inserimentoCondizionale;
+
 
     public Gui(){
 
@@ -99,16 +105,24 @@ public class Gui implements ActionListener {
         nodesPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         nodesPanel.setPreferredSize(new Dimension(100,100));
 
-        averageLabel = new JLabel();
+        averageLabel = new JLabel("Average: ");
         averageLabel.setFont(textFont);
         averageLabel.setForeground(textColor);
-        averageLabel.setBounds(0,540,360, 580);
-        averageLabel.setText("diodoidoidfoiofiofi");
-        nodesPanel.setVisible(true);
+        averageLabel.setBounds(20,490,360, 30);
+        averageLabel.setVisible(true);
+
+        enableConditionalInput = new JCheckBox();
+        enableConditionalInput.addActionListener(this);
+        enableConditionalInput.setBounds(435, 490, 660, 30);
+        enableConditionalInput.setText("Attivare inserimento condizionale?");
+        enableConditionalInput.setFont(textFont);
+        enableConditionalInput.setForeground(textColor);
+
 
         panel.add(buttonsPanel);
         panel.add(nodesPanel);
-        frame.add(averageLabel);
+        panel.add(averageLabel);
+        panel.add(enableConditionalInput);
         frame.add(titleLabel);
         frame.add(panel);
         frame.setVisible(true);
@@ -154,14 +168,23 @@ public class Gui implements ActionListener {
 
         }
 
-    }
+        if(e.getSource() == enableConditionalInput){
+            if(enableConditionalInput.isSelected())
+                inserimentoCondizionale = true;
 
+            else if(!enableConditionalInput.isSelected())
+                inserimentoCondizionale = false;
+
+        }
+    }
+    
     public static void main(String args[]){
 
         Gui gui = new Gui();
         nodePanels = new ArrayList<JPanel>();
         lista = new Lista();
         lastX = 50;
+        inserimentoCondizionale = false;
 
     }
 

@@ -23,6 +23,7 @@ public class Gui implements ActionListener {
     //Label
     private final JLabel titleLabel;
     private final JLabel averageLabel;
+    private final JLabel notificationLabel;
 
     //ScrollPane
     private final JScrollPane nodesPanel;
@@ -113,15 +114,22 @@ public class Gui implements ActionListener {
 
         enableConditionalInput = new JCheckBox();
         enableConditionalInput.addActionListener(this);
-        enableConditionalInput.setBounds(435, 490, 660, 30);
+        enableConditionalInput.setBounds(445, 490, 660, 30);
         enableConditionalInput.setText("Attivare inserimento condizionale?");
         enableConditionalInput.setFont(textFont);
         enableConditionalInput.setForeground(textColor);
+
+        notificationLabel = new JLabel("453644444444444444");
+        notificationLabel.setBounds(20,440,660,20);
+        notificationLabel.setFont(textFont);
+        notificationLabel.setForeground(Color.red);
+        notificationLabel.setHorizontalAlignment(JTextField.CENTER);
 
 
         panel.add(buttonsPanel);
         panel.add(nodesPanel);
         panel.add(averageLabel);
+        panel.add(notificationLabel);
         panel.add(enableConditionalInput);
         frame.add(titleLabel);
         frame.add(panel);
@@ -144,6 +152,8 @@ public class Gui implements ActionListener {
 
             updateNodes();
 
+            averageLabel.setText("Average: " + lista.media());
+
         }
 
         if(e.getSource() == inserisciCodaButton){
@@ -165,6 +175,8 @@ public class Gui implements ActionListener {
             }
 
             updateNodes();
+
+            averageLabel.setText("Average: " + lista.media());
 
         }
 

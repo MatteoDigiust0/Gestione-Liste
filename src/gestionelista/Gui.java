@@ -142,6 +142,18 @@ public class Gui implements ActionListener {
 
         if(e.getSource() == inserisciTestaButton){
 
+            notificationLabel.setText("");
+
+            if(inserimentoCondizionale){
+
+                if(lista.controlloPresenzaElemento(Integer.parseInt(numeroInput.getText()))){
+                    notificationLabel.setText("Valore già inserito");
+                   return;
+                }
+
+
+            }
+
             lista.addFront( Integer.parseInt(numeroInput.getText()));
             addNode();
 
@@ -157,6 +169,17 @@ public class Gui implements ActionListener {
         }
 
         if(e.getSource() == inserisciCodaButton){
+
+            notificationLabel.setText("");
+
+            if(inserimentoCondizionale){
+
+                if(lista.controlloPresenzaElemento(Integer.parseInt(numeroInput.getText()))){
+                    notificationLabel.setText("Valore già inserito");
+                    return;
+                }
+
+            }
 
             lista.addBehind(Integer.parseInt(numeroInput.getText()));
             addNode();

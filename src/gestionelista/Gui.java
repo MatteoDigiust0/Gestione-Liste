@@ -5,9 +5,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.util.ArrayList;
-import java.awt.Graphics;
 
 public class Gui implements ActionListener {
 
@@ -64,8 +62,9 @@ public class Gui implements ActionListener {
         frame.setLayout(null);
 
         titleLabel = new JLabel("Gestione liste");
-        titleLabel.setBounds(0,0,720,30);
+        titleLabel.setBounds(3,0,720,30);
         titleLabel.setFont(titleFont);
+        titleLabel.setHorizontalAlignment(JTextField.CENTER);
 
         panel = new JPanel();
         panel.setBounds(0,20,720,560);
@@ -114,12 +113,12 @@ public class Gui implements ActionListener {
 
         enableConditionalInput = new JCheckBox();
         enableConditionalInput.addActionListener(this);
-        enableConditionalInput.setBounds(445, 490, 660, 30);
-        enableConditionalInput.setText("Attivare inserimento condizionale?");
+        enableConditionalInput.setBounds(485, 490, 660, 30);
+        enableConditionalInput.setText("Inserimento condizionale");
         enableConditionalInput.setFont(textFont);
         enableConditionalInput.setForeground(textColor);
 
-        notificationLabel = new JLabel("453644444444444444");
+        notificationLabel = new JLabel();
         notificationLabel.setBounds(20,440,660,20);
         notificationLabel.setFont(textFont);
         notificationLabel.setForeground(Color.red);
@@ -271,25 +270,6 @@ public class Gui implements ActionListener {
         drawArrow();
         nodesPanel.repaint();
 
-        /*
-        JPanel panel1 = new JPanel(new FlowLayout());
-        JPanel panel2 = new JPanel(new FlowLayout());
-
-        panel1.setPreferredSize(new Dimension(50,50));
-        panel2.setPreferredSize(new Dimension(50,50));
-
-        panel1.add(new JLabel(String.valueOf(lista.getHead().getInfo())));
-        panel2.add(new JLabel());
-
-        nodePanels.get(nodePanels.size() - 1).add(panel1, BorderLayout.WEST);
-        nodePanels.get(nodePanels.size() - 1).add(panel2, BorderLayout.EAST);
-
-        panel1.setBorder(nodePanelBorder);
-        panel2.setBorder(nodePanelBorder);
-        */
-        //updateNodes();
-        nodesPanel.repaint();
-        
     }
 
     public void drawArrow(){

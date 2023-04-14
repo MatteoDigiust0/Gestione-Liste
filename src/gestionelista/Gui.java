@@ -141,64 +141,69 @@ public class Gui implements ActionListener {
 
         if(e.getSource() == inserisciTestaButton){
 
-            notificationLabel.setText("");
+            try{
 
-            if(inserimentoCondizionale){
+                notificationLabel.setText("");
+                checkLength();
 
-                if(lista.controlloPresenzaElemento(Integer.parseInt(numeroInput.getText()))){
-                    notificationLabel.setText("Valore già inserito");
-                   return;
+                if(inserimentoCondizionale){
+
+                    if(lista.controlloPresenzaElemento(Integer.parseInt(numeroInput.getText()))){
+                        notificationLabel.setText("Valore già inserito");
+                        return;
+                    }
+
+
                 }
 
+                lista.addFront( Integer.parseInt(numeroInput.getText()));
+                addNode();
 
+                for(int i = 0; i < nodePanels.size(); i++){
+
+                    nodePanels.get(i).removeAll();
+                }
+
+                updateNodes();
+
+                averageLabel.setText("Average: " + lista.media());
+
+            }catch(Exception exc){
+                notificationLabel.setText("Valore errato");
             }
-
-            lista.addFront( Integer.parseInt(numeroInput.getText()));
-            addNode();
-
-            for(int i = 0; i < nodePanels.size(); i++){
-
-                nodePanels.get(i).removeAll();
-            }
-
-            updateNodes();
-
-            averageLabel.setText("Average: " + lista.media());
 
         }
 
         if(e.getSource() == inserisciCodaButton){
 
-            notificationLabel.setText("");
+            try{
 
-            if(inserimentoCondizionale){
+                notificationLabel.setText("");
+                checkLength();
 
-                if(lista.controlloPresenzaElemento(Integer.parseInt(numeroInput.getText()))){
-                    notificationLabel.setText("Valore già inserito");
-                    return;
+                if(inserimentoCondizionale){
+
+                    if(lista.controlloPresenzaElemento(Integer.parseInt(numeroInput.getText()))){
+                        notificationLabel.setText("Valore già inserito");
+                        return;
+                    }
+
                 }
 
+                lista.addBehind(Integer.parseInt(numeroInput.getText()));
+                addNode();
+
+                for(int i = 0; i < nodePanels.size(); i++){
+                    nodePanels.get(i).removeAll();
+                }
+
+                updateNodes();
+
+                averageLabel.setText("Average: " + lista.media());
+
+            }catch(Exception exc){
+                notificationLabel.setText("Valore errato");
             }
-
-            lista.addBehind(Integer.parseInt(numeroInput.getText()));
-            addNode();
-
-            Nodo nodo = new Nodo();
-
-            nodo = lista.getHead();
-
-            while(nodo != null){
-                System.out.println(nodo.getInfo());
-                nodo = nodo.getNext();
-            }
-
-            for(int i = 0; i < nodePanels.size(); i++){
-                nodePanels.get(i).removeAll();
-            }
-
-            updateNodes();
-
-            averageLabel.setText("Average: " + lista.media());
 
         }
 
@@ -272,7 +277,7 @@ public class Gui implements ActionListener {
 
     }
 
-    public void drawArrow(){
+    private void drawArrow(){
 
         if(nodePanels.size() > 1) {
             JLabel arrowLabel = new JLabel("---------->");
@@ -285,6 +290,14 @@ public class Gui implements ActionListener {
         lastX += 100;
 
     }
+
+    private void checkLength() throws Exception{
+
+        if(numeroInput.getText().length() > 6)
+            throw new Exception();
+
+    }
+
 
 }
 

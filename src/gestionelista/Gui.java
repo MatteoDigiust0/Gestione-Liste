@@ -29,6 +29,7 @@ public class Gui implements ActionListener {
     //Buttons
     private final JButton inserisciTestaButton;
     private final JButton inserisciCodaButton;
+    private final JButton deleteButton;
 
     //TextField
     private final JTextField numeroInput;
@@ -87,12 +88,21 @@ public class Gui implements ActionListener {
         inserisciCodaButton.setBackground(backgroundColor);
         inserisciCodaButton.setFont(textFont);
 
+        deleteButton = new JButton("Elimina");
+        deleteButton.addActionListener(this);
+        deleteButton.setForeground(textColor);
+        deleteButton.setBackground(backgroundColor);
+        deleteButton.setFont(textFont);
+        deleteButton.setEnabled(false);
+
         buttonsPanel = new JPanel();
         buttonsPanel.setBounds(20,55, 660, 50);
-        buttonsPanel.setLayout(new GridLayout(1,3, 2,2));
+        buttonsPanel.setLayout(new GridLayout(1,4, 2,2));
         buttonsPanel.add(numeroInput);
         buttonsPanel.add(inserisciTestaButton);
         buttonsPanel.add(inserisciCodaButton);
+        buttonsPanel.add(deleteButton);
+
 
         scrollPanelInternalPanel = new JPanel();
         scrollPanelInternalPanel.setLayout(null);

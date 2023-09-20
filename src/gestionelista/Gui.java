@@ -5,6 +5,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Gui implements ActionListener {
@@ -39,6 +41,7 @@ public class Gui implements ActionListener {
 
     //Borders
     private static Border nodePanelBorder = BorderFactory.createLineBorder(Color.black, 1);
+    private static Border boldBorder = BorderFactory.createLineBorder(Color.black, 3); 
 
     //Colors
     private static Color textColor = new Color(52, 58, 64);
@@ -52,6 +55,8 @@ public class Gui implements ActionListener {
     private static int lastX;
     private static Lista lista;
     private static boolean inserimentoCondizionale;
+
+    private static int triggeredIndex;
 
 
     public Gui(){
@@ -226,7 +231,7 @@ public class Gui implements ActionListener {
 
         }
     }
-    
+
     public static void main(String args[]){
 
         Gui gui = new Gui();
@@ -277,6 +282,18 @@ public class Gui implements ActionListener {
         nodePanels.get(nodePanels.size()-1).setLayout(new BorderLayout());
         nodePanels.get(nodePanels.size()-1).setBorder(nodePanelBorder);
         nodePanels.get(nodePanels.size()-1).setVisible(true);
+        nodePanels.get(nodePanels.size()-1).addMouseListener(new MouseAdapter(){
+
+            @Override
+            public void mouseClicked(MouseEvent ev) {
+
+                nodePanels.get(triggeredIndex).setBorder(nodePanelBorder);
+
+                triggeredIndex = nodePanels.indexOf(ev.getSource());
+                nodePanels.get(triggeredIndex).setBorder(boldBorder);
+                deleteButton.setEnabled(true);
+            }
+        });
 
         lastX+=100;
 

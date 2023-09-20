@@ -56,6 +56,35 @@ public class Lista {
         return output;
     }
 
+    public void elimina(int index){
+
+        if(index == 0)
+            eliminaTesta();
+        if(index == contaLunghezza() - 1)
+            eliminaCoda();
+        else{
+            eliminaIndice(index);
+        }
+
+    }
+
+    public void eliminaIndice(int index){
+
+        int i = 0;
+
+        Nodo aux = new Nodo();
+        aux = head;
+
+        while(i < (index -1 )){
+            aux = aux.getNext();
+            i++;
+        }
+
+        aux.setNext(aux.getNext().getNext());
+        System.gc();
+
+    }
+
     public void eliminaTesta(){
 
         if(head == null)

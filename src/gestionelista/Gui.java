@@ -24,6 +24,7 @@ public class Gui implements ActionListener {
     private final JLabel titleLabel;
     private final JLabel averageLabel;
     private final JLabel notificationLabel;
+    private static JLabel lastArrow;
 
     //ScrollPane
     private final JScrollPane nodesPanel;
@@ -230,6 +231,28 @@ public class Gui implements ActionListener {
                 inserimentoCondizionale = false;
 
         }
+
+        if(e.getSource() == deleteButton){
+
+            lista.elimina(triggeredIndex);
+
+            scrollPanelInternalPanel.remove(nodePanels.get(nodePanels.size() - 1));
+            scrollPanelInternalPanel.remove(lastArrow);
+
+            for(int i = 0; i < nodePanels.size(); i++){
+                nodePanels.get(i).removeAll();
+            }
+
+            nodePanels.remove(nodePanels.size() - 1);
+            lastX-=200;
+
+            System.out.println("\n\n" + lista.visualizzaLista());
+
+            updateNodes();
+            nodesPanel.repaint();
+            nodePanels.get(triggeredIndex).setBorder(nodePanelBorder);
+            deleteButton.setEnabled(false);
+        }
     }
 
     public static void main(String args[]){
@@ -247,31 +270,34 @@ public class Gui implements ActionListener {
         Nodo nodoTemp = new Nodo();
         nodoTemp = lista.getHead();
 
+
         for(int i = 0; i < nodePanels.size(); i++) {
 
             if(nodoTemp != null){
-            JPanel panel1 = new JPanel(new FlowLayout());
-            JPanel panel2 = new JPanel(new FlowLayout());
+                JPanel panel1 = new JPanel(new FlowLayout());
+                JPanel panel2 = new JPanel(new FlowLayout());
 
-            panel1.setPreferredSize(new Dimension(50, 50));
-            panel2.setPreferredSize(new Dimension(50, 50));
+                panel1.setPreferredSize(new Dimension(50, 50));
+                panel2.setPreferredSize(new Dimension(50, 50));
 
-            panel1.add(new JLabel(String.valueOf(nodoTemp.getInfo())));
-            panel2.add(new JLabel());
+                panel1.add(new JLabel(String.valueOf(nodoTemp.getInfo())));
+                panel2.add(new JLabel());
 
-            nodePanels.get(i).add(panel1, BorderLayout.WEST);
-            nodePanels.get(i).add(panel2, BorderLayout.EAST);
+                nodePanels.get(i).add(panel1, BorderLayout.WEST);
+                nodePanels.get(i).add(panel2, BorderLayout.EAST);
 
-            panel1.setBorder(nodePanelBorder);
-            panel2.setBorder(nodePanelBorder);
+                panel1.setBorder(nodePanelBorder);
+                panel2.setBorder(nodePanelBorder);
 
-            nodoTemp = nodoTemp.getNext();
+                nodoTemp = nodoTemp.getNext();
 
             }
 
         }
 
     }
+
+
 
 
     private void addNode(){
@@ -312,6 +338,7 @@ public class Gui implements ActionListener {
             arrowLabel.setBounds(lastX - 200, /*(170-50)/2*/100, 100, 50/*(170-50)/2 + 70 + 25*/);
             arrowLabel.setHorizontalAlignment(JLabel.CENTER);
             scrollPanelInternalPanel.add(arrowLabel);
+            lastArrow = arrowLabel;
         }
 
         lastX += 100;

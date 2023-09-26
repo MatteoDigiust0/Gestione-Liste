@@ -7,6 +7,7 @@ public class Lista {
         head = null;
     }
 
+    //Metodo che passato un valore, lo aggiunge in testa alla lista
     public void addFront(int valore){
         Nodo nodo = new Nodo(valore);
 
@@ -19,6 +20,7 @@ public class Lista {
         }
     }
 
+    //Metodo che passato un valore, lo aggiunge in coda alla lista
     public void addBehind(int valore){
 
         if(head == null)
@@ -38,6 +40,7 @@ public class Lista {
         }
     }
 
+    //Metodo che stampa il contenuto della lista
     public String visualizzaLista(){
 
         Nodo nodoTemp = new Nodo();
@@ -56,6 +59,8 @@ public class Lista {
         return output;
     }
 
+
+    //
     public void elimina(int index){
 
         if(index == 0)

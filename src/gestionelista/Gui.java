@@ -1,3 +1,5 @@
+//Attualemente è possibilie eliminare una sola volta un nodo
+
 package gestionelista;
 
 import javax.swing.*;
@@ -155,24 +157,24 @@ public class Gui implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(e.getSource() == inserisciTestaButton){
+        if(e.getSource() == inserisciTestaButton){      //Caso in cui l'utente schiaccia sul JButton per l'inserimento del numero in testa alla pila
 
             try{
 
-                notificationLabel.setText("");
-                checkLength();
+                notificationLabel.setText("");      //Cancello il testo contenuto nel Label delle notifiche, nel caso ci sia qualche avviso relativo a un'azione svolta in precedenza che non è andata a buon fine
+                checkLength();      //Controllo che il numero inserito non abbia troppe cifre
 
-                if(inserimentoCondizionale){
+                if(inserimentoCondizionale){    //Parte di codice da eseguire nel caso in cui l'utente abbia abilitato l'inserimento condizionale, cioè uno stesso numero può essere inserito una sola volta
 
-                    if(lista.controlloPresenzaElemento(Integer.parseInt(numeroInput.getText()))){
-                        notificationLabel.setText("Valore già inserito");
+                    if(lista.controlloPresenzaElemento(Integer.parseInt(numeroInput.getText()))){       //Controllo che il numero che l'utente vuole inserire non sia gia presente nella lista
+                        notificationLabel.setText("Valore già inserito");                          //Nel caso in cui il numero sia giò presente stampo nel Label delle notifiche un messaggio di errore
                         return;
                     }
 
 
                 }
 
-                lista.addFront( Integer.parseInt(numeroInput.getText()));
+                lista.addFront( Integer.parseInt(numeroInput.getText()));   //Inserire il numero in testa alla coda
                 addNode();
 
                 for(int i = 0; i < nodePanels.size(); i++){
@@ -298,8 +300,6 @@ public class Gui implements ActionListener {
     }
 
 
-
-
     private void addNode(){
 
         nodePanels.add(new JPanel());
@@ -345,6 +345,8 @@ public class Gui implements ActionListener {
 
     }
 
+    //Metodo che restituisce una eccezione se il numero inserito ha più di 5 cifre
+    //Necessario per evitare problemi con la visualizzazione dei numeri all'interno dei JPanel che vanno a formare i nodi della lista.
     private void checkLength() throws Exception{
 
         if(numeroInput.getText().length() > 6)

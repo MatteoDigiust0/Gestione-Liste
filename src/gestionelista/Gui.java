@@ -20,6 +20,8 @@ public class Gui implements ActionListener {
     private final JPanel panel;
     private final JPanel buttonsPanel;
     private final  JPanel scrollPanelInternalPanel;
+
+    //La rappresentazione grafica dei nodi della lista avviene tramite l'utilizzo di vari Jpanel, ogni JPanel contiene un valore della lista, memorizzati in un ArrayList
     private static ArrayList<JPanel> nodePanels;
 
     //Label
@@ -161,8 +163,8 @@ public class Gui implements ActionListener {
 
             try{
 
-                notificationLabel.setText("");      //Cancello il testo contenuto nel Label delle notifiche, nel caso ci sia qualche avviso relativo a un'azione svolta in precedenza che non è andata a buon fine
-                checkLength();      //Controllo che il numero inserito non abbia troppe cifre
+                notificationLabel.setText("");
+                checkLength();
 
                 if(inserimentoCondizionale){    //Parte di codice da eseguire nel caso in cui l'utente abbia abilitato l'inserimento condizionale, cioè uno stesso numero può essere inserito una sola volta
 
@@ -182,7 +184,7 @@ public class Gui implements ActionListener {
                     nodePanels.get(i).removeAll();
                 }
 
-                updateNodes();
+               updateNodes();
 
                 averageLabel.setText("Average: " + lista.media());
 
@@ -192,7 +194,7 @@ public class Gui implements ActionListener {
 
         }
 
-        if(e.getSource() == inserisciCodaButton){
+        if(e.getSource() == inserisciCodaButton){       //Caso in cui l'utente sceglie di inserire un valore alla fine della lista
 
             try{
 
@@ -225,7 +227,7 @@ public class Gui implements ActionListener {
 
         }
 
-        if(e.getSource() == enableConditionalInput){
+        if(e.getSource() == enableConditionalInput){        //Caso in cui l'utente decide di abilitare l'inserimento condizionale (un numero può essere inserito una sola volta)
             if(enableConditionalInput.isSelected())
                 inserimentoCondizionale = true;
 
@@ -234,7 +236,7 @@ public class Gui implements ActionListener {
 
         }
 
-        if(e.getSource() == deleteButton){
+        if(e.getSource() == deleteButton){      //Caso in cui l'utente decide di eliminare un nodo precedentemente selezionato
 
             lista.elimina(triggeredIndex);
 
@@ -254,6 +256,7 @@ public class Gui implements ActionListener {
             nodesPanel.repaint();
             nodePanels.get(triggeredIndex).setBorder(nodePanelBorder);
             deleteButton.setEnabled(false);
+            averageLabel.setText("Average: " + lista.media());
         }
     }
 
@@ -267,11 +270,13 @@ public class Gui implements ActionListener {
 
     }
 
+
+    //Richiamato durante l'inserimento di un valore dopo la funzione "AddNode"
+    //Modifica i JPanel presenti nell ArrayList in modo da dagli la sembianza tipica dei nodi delle liste e inserisce i valori
     private void updateNodes(){
 
         Nodo nodoTemp = new Nodo();
         nodoTemp = lista.getHead();
-
 
         for(int i = 0; i < nodePanels.size(); i++) {
 
@@ -299,7 +304,8 @@ public class Gui implements ActionListener {
 
     }
 
-
+    //Metodo che viene richiamato quando l'utente inserisce un nuovo valore nella lista
+    //Aggiunge un nuovo JPanel nell ArrayList e lo modifica
     private void addNode(){
 
         nodePanels.add(new JPanel());
@@ -330,6 +336,8 @@ public class Gui implements ActionListener {
 
     }
 
+    //Richiamata della funzione "AddNode"
+    //Disegna una freccia che collega i nodi tra di loro, nel caso in cui siano più di uno
     private void drawArrow(){
 
         if(nodePanels.size() > 1) {

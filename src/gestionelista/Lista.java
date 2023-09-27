@@ -60,7 +60,8 @@ public class Lista {
     }
 
 
-    //
+    //Metodo che, passato l'indice di un nodo della lista, decide la funzione da richimare per eliminare il nodo
+    //Nel caso in cui l'indice coincida con la testa o la coda della lista richiamo della funzioni specifiche
     public void elimina(int index){
 
         if(index == 0)
@@ -73,6 +74,7 @@ public class Lista {
 
     }
 
+    //Metodo che passato l'indice di un nodo lo elimina
     public void eliminaIndice(int index){
 
         int i = 0;
@@ -90,6 +92,7 @@ public class Lista {
 
     }
 
+    //Metodo che elimina la testa della lista
     public void eliminaTesta(){
 
         if(head == null)
@@ -102,6 +105,7 @@ public class Lista {
         System.gc();
     }
 
+    //Metodo che elimina la coda della lista
     public void eliminaCoda(){
 
         Nodo nodoTemp = new Nodo();
@@ -123,6 +127,7 @@ public class Lista {
         System.gc();
     }
 
+    //Metodo che conta la lunghezza della lista
     public int contaLunghezza(){
 
         Nodo nodoTemp = new Nodo();
@@ -139,6 +144,7 @@ public class Lista {
         return size;
     }
 
+    //Metodo che calcola la media della lista
     public double media() {
 
         Nodo nodoTemp = new Nodo();
@@ -155,6 +161,7 @@ public class Lista {
 
     }
 
+    //Metodo che, passato un valore, controlla se è già presente all'interno della lista
     public boolean controlloPresenzaElemento(int valore){
 
         Nodo nodoTemp = new Nodo();
@@ -175,6 +182,7 @@ public class Lista {
 
     }
 
+    //Metodo che onta il numero di elementi presenti all'interno della lista che sono inferiori alla media
     public int contaElementiInferioriMedia(){
 
         Nodo nodoTemp = new Nodo();
@@ -194,6 +202,8 @@ public class Lista {
         return conta;
     }
 
+    //Metodo che verifica se ci sono elementi ripetuti all'interno della lista
+    //ATTUALMENTE NON IN USO
     public boolean verificaElementiRipetuti(){
 
         Nodo nodoTemp = new Nodo();
@@ -222,6 +232,9 @@ public class Lista {
         return false;
     }
 
+
+    //Metodi utilizzati per l'inserimento condizionale
+    //Passato un valore controllano che non sia già presente all'interno della lista e in tal caso procedono con l'inserimento
     public boolean inserimentoTestaConControllo(int valore){
 
         if(!controlloPresenzaElemento(valore)){

@@ -29,6 +29,7 @@ public class Gui implements ActionListener {
     private final JLabel averageLabel;
     private final JLabel notificationLabel;
     private static JLabel lastArrow;
+    private static ArrayList<JLabel> arrows;
 
     //ScrollPane
     private final JScrollPane nodesPanel;
@@ -163,6 +164,7 @@ public class Gui implements ActionListener {
 
             try{
 
+
                 notificationLabel.setText("");
                 checkLength();
 
@@ -184,8 +186,8 @@ public class Gui implements ActionListener {
                     nodePanels.get(i).removeAll();
                 }
 
-               updateNodes();
-
+                updateNodes();
+                numeroInput.setText("");
                 averageLabel.setText("Average: " + lista.media());
 
             }catch(Exception exc){
@@ -218,11 +220,12 @@ public class Gui implements ActionListener {
                 }
 
                 updateNodes();
-
+                numeroInput.setText(null);
                 averageLabel.setText("Average: " + lista.media());
 
             }catch(Exception exc){
                 notificationLabel.setText("Valore errato");
+                System.out.println(exc);
             }
 
         }
@@ -238,10 +241,15 @@ public class Gui implements ActionListener {
 
         if(e.getSource() == deleteButton){      //Caso in cui l'utente decide di eliminare un nodo precedentemente selezionato
 
+            notificationLabel.setText("");
             lista.elimina(triggeredIndex);
 
             scrollPanelInternalPanel.remove(nodePanels.get(nodePanels.size() - 1));
-            scrollPanelInternalPanel.remove(lastArrow);
+
+            if(!arrows.isEmpty()) {
+                scrollPanelInternalPanel.remove(arrows.get(arrows.size() - 1));
+                arrows.remove(arrows.size() - 1);
+            }
 
             for(int i = 0; i < nodePanels.size(); i++){
                 nodePanels.get(i).removeAll();
@@ -254,7 +262,9 @@ public class Gui implements ActionListener {
 
             updateNodes();
             nodesPanel.repaint();
-            nodePanels.get(triggeredIndex).setBorder(nodePanelBorder);
+            if(nodePanels.size() != triggeredIndex)
+                nodePanels.get(triggeredIndex).setBorder(nodePanelBorder);
+
             deleteButton.setEnabled(false);
             averageLabel.setText("Average: " + lista.media());
         }
@@ -264,6 +274,7 @@ public class Gui implements ActionListener {
 
         Gui gui = new Gui();
         nodePanels = new ArrayList<JPanel>();
+        arrows = new ArrayList<JLabel>();
         lista = new Lista();
         lastX = 50;
         inserimentoCondizionale = false;
@@ -319,11 +330,13 @@ public class Gui implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent ev) {
 
-                nodePanels.get(triggeredIndex).setBorder(nodePanelBorder);
+                if(nodePanels.size() != triggeredIndex)
+                    nodePanels.get(triggeredIndex).setBorder(nodePanelBorder);
 
                 triggeredIndex = nodePanels.indexOf(ev.getSource());
                 nodePanels.get(triggeredIndex).setBorder(boldBorder);
                 deleteButton.setEnabled(true);
+
             }
         });
 
@@ -346,7 +359,7 @@ public class Gui implements ActionListener {
             arrowLabel.setBounds(lastX - 200, /*(170-50)/2*/100, 100, 50/*(170-50)/2 + 70 + 25*/);
             arrowLabel.setHorizontalAlignment(JLabel.CENTER);
             scrollPanelInternalPanel.add(arrowLabel);
-            lastArrow = arrowLabel;
+            arrows.add(arrowLabel);
         }
 
         lastX += 100;

@@ -64,10 +64,14 @@ public class Lista {
     //Nel caso in cui l'indice coincida con la testa o la coda della lista richiamo della funzioni specifiche
     public void elimina(int index){
 
-        if(index == 0)
+        if(index == 0) {
             eliminaTesta();
-        if(index == contaLunghezza() - 1)
+            return;
+        }
+        if(index == contaLunghezza() - 1){
             eliminaCoda();
+            return;
+        }
         else{
             eliminaIndice(index);
         }
@@ -123,7 +127,8 @@ public class Lista {
             nodoTemp = nodoTemp.getNext();
         }
 
-        nodoTemp.getNext().setNext(null);
+        nodoTemp.getNext();
+        nodoTemp.setNext(null);
         System.gc();
     }
 

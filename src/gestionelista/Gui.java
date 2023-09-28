@@ -19,7 +19,7 @@ public class Gui implements ActionListener {
     //Panels
     private final JPanel panel;
     private final JPanel buttonsPanel;
-    private final  JPanel scrollPanelInternalPanel;
+    private final JPanel nodesPanel;
 
     //La rappresentazione grafica dei nodi della lista avviene tramite l'utilizzo di vari Jpanel, ogni JPanel contiene un valore della lista, memorizzati in un ArrayList
     private static ArrayList<JPanel> nodePanels;
@@ -32,7 +32,7 @@ public class Gui implements ActionListener {
     private static ArrayList<JLabel> arrows;
 
     //ScrollPane
-    private final JScrollPane nodesPanel;
+    private final JScrollPane scrollPane;
 
     //Buttons
     private final JButton inserisciTestaButton;
@@ -115,16 +115,16 @@ public class Gui implements ActionListener {
         buttonsPanel.add(deleteButton);
 
 
-        scrollPanelInternalPanel = new JPanel();
-        scrollPanelInternalPanel.setLayout(null);
-        scrollPanelInternalPanel.setPreferredSize(new Dimension(2000,300));
+        nodesPanel = new JPanel();
+        nodesPanel.setLayout(null);
+        nodesPanel.setPreferredSize(new Dimension(2000,300));
 
-        nodesPanel = new JScrollPane(scrollPanelInternalPanel);
-        nodesPanel.setBounds(20, 130, 660, 300);
-        nodesPanel.setVisible(true);
-        nodesPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        nodesPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        nodesPanel.setPreferredSize(new Dimension(100,100));
+        scrollPane = new JScrollPane(nodesPanel);
+        scrollPane.setBounds(20, 130, 660, 300);
+        scrollPane.setVisible(true);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setPreferredSize(new Dimension(100,100));
 
         averageLabel = new JLabel("Average: ");
         averageLabel.setFont(textFont);
@@ -147,7 +147,7 @@ public class Gui implements ActionListener {
 
 
         panel.add(buttonsPanel);
-        panel.add(nodesPanel);
+        panel.add(scrollPane);
         panel.add(averageLabel);
         panel.add(notificationLabel);
         panel.add(enableConditionalInput);
@@ -244,10 +244,10 @@ public class Gui implements ActionListener {
             notificationLabel.setText("");
             lista.elimina(triggeredIndex);
 
-            scrollPanelInternalPanel.remove(nodePanels.get(nodePanels.size() - 1));
+            nodesPanel.remove(nodePanels.get(nodePanels.size() - 1));
 
             if(!arrows.isEmpty()) {
-                scrollPanelInternalPanel.remove(arrows.get(arrows.size() - 1));
+                nodesPanel.remove(arrows.get(arrows.size() - 1));
                 arrows.remove(arrows.size() - 1);
             }
 
@@ -258,10 +258,9 @@ public class Gui implements ActionListener {
             nodePanels.remove(nodePanels.size() - 1);
             lastX-=200;
 
-            System.out.println("\n\n" + lista.visualizzaLista());
-
             updateNodes();
             nodesPanel.repaint();
+
             if(nodePanels.size() != triggeredIndex)
                 nodePanels.get(triggeredIndex).setBorder(nodePanelBorder);
 
@@ -342,7 +341,7 @@ public class Gui implements ActionListener {
 
         lastX+=100;
 
-        scrollPanelInternalPanel.add(nodePanels.get(nodePanels.size()-1));
+        nodesPanel.add(nodePanels.get(nodePanels.size()-1));
 
         drawArrow();
         nodesPanel.repaint();
@@ -358,7 +357,7 @@ public class Gui implements ActionListener {
             arrowLabel.setFont(new Font("Arial", Font.BOLD, 20));
             arrowLabel.setBounds(lastX - 200, /*(170-50)/2*/100, 100, 50/*(170-50)/2 + 70 + 25*/);
             arrowLabel.setHorizontalAlignment(JLabel.CENTER);
-            scrollPanelInternalPanel.add(arrowLabel);
+            nodesPanel.add(arrowLabel);
             arrows.add(arrowLabel);
         }
 
